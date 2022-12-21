@@ -257,7 +257,7 @@ class RepeatAdvPatch_Attack():
             #cv2_img=cv2.imread(name)
             temp_save_path=os.path.join(save_path,name.split('\\')[-1])
             #Draw_box(cv2_img,results,save_path)
-            Draw_box(img_tensortocv2(merge_image), pred, temp_save_path)
+            Draw_box(img_tensortocv2(merge_image), pred, temp_save_path,model_name=self.model_name)
         P, R, F = self.evaluator.combine_results(results)
         return P,R,F
 

@@ -51,8 +51,17 @@ def draw_bbox(img, result, color=(128, 240, 128), thickness=3):
         cv2.line(img, tuple(point[3]), tuple(point[0]), color, thickness)
     return img
 
+def CRAFT_draw_box(img,boxes):
+    for i, box in enumerate(boxes):
+        poly = np.array(box).astype(np.int32).reshape((-1))
+        poly = poly.reshape(-1, 2)
+        cv2.polylines(img, [poly.reshape((-1, 1, 2))], True, color=(0, 0, 255), thickness=2)
+    return img
 
-def Draw_box(img,boxes,save_path):
+def Draw_box(img,boxes,save_path,model_name):
     assert type(img) == np.ndarray
-    img = draw_bbox(img, boxes)
+    if model_name=='CRAFT':
+        img = CRAFT_draw_box(img, boxes)
+    else:
+        img = draw_bbox(img, boxes)
     cv2.imwrite(save_path, img)
